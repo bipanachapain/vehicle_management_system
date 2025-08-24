@@ -8,6 +8,8 @@ use App\Models\Message;
 use App\Models\Notification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RenewableNotificationMail;
 class SendRenewableNotifications extends Command
 {
     /**
@@ -97,9 +99,15 @@ class SendRenewableNotifications extends Command
 //                  $service->sendSMS($userPhone, $text);
 //             $service->sendWhatsApp($userPhone, $text);
 // }
-
+            // Dispatch job to send SMS or WhatsApp notification
             if ($userPhone) {
                 \App\Jobs\SendUserNotification::dispatch($userPhone, $text);
+            }
+            // Send email notification
+            $userEmail = $renewable->vehicle->user->email ?? null;
+            if ($userEmail) {
+                Mail::to($userEmail)->send(new RenewableNotificationMail($text));
+               // Mail::to($userEmail)->queue(new RenewableNotificationMail($text));
             }
             
         }

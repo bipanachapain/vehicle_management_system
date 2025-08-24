@@ -30,10 +30,9 @@ Route::middleware(['auth', 'admin','verified'])->group(function () {
      Route::get('/document-types', DocumentTypeAdmin::class)->name('admin.document.types');
     Route::get('/messages', MessageComponent::class)->name('admin.messages');
     Route::get('/admin/reports', AdminReports::class)->name('admin.reports');
-    // Route::get('/admin/reports', AdminReports::class)->name('admin.reports');
     Route::get('/admin/user/{userId}/vehicles', VehicleReport::class)->name('admin.user.vehicles');
     Route::get('/admin/vehicle/{vehicleId}/renewables', VehicleRenewables::class)->name('admin.vehicle.renewables');
-    // Add other admin routes here
+    Route::get('/admin/profile', \App\Livewire\AdminProfile::class)->name('admin.profile');
 });
 Route::middleware(['auth','verified'])->group(function () {
     Route::get('/user/dashboard', UserDashboard::class)->name('user.dashboard');
@@ -44,7 +43,8 @@ Route::middleware(['auth','verified'])->group(function () {
       Route::get('/vehicles/{vehicle}/document/{document}/history', RenewableHistory::class)
     ->name('renewable.history');
     Route::get('/user/notifications', UserNotification::class)->name('user.notifications');
-    // Add other user routes here
+    Route::get('/profile', \App\Livewire\UserProfile::class)->name('user.profile');
+   
 });
 
 require __DIR__.'/auth.php';

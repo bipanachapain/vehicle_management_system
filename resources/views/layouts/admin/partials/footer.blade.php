@@ -5,6 +5,45 @@
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/chartjs.min.js"></script>
+  
+  {{-- <script>
+    var ctx1 = document.getElementById("chart-line").getContext("2d");
+
+    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+    gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
+    gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
+    gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+
+    new Chart(ctx1, {
+        type: "line",
+        data: {
+            labels: @json($labels),
+            data: @json($data),
+            datasets: [{
+                label: "Renewables",
+                tension: 0.4,
+                borderWidth: 3,
+                pointRadius: 0,
+                borderColor: "#5e72e4",
+                backgroundColor: gradientStroke1,
+                fill: true,
+                data: @json($data),
+                maxBarThickness: 6
+            }],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            interaction: { intersect: false, mode: 'index' },
+            scales: {
+                y: { grid: { drawBorder: false, borderDash: [5, 5] } },
+                x: { grid: { drawBorder: false, display: false } }
+            }
+        },
+    });
+</script> --}}
+
   <script>
     var ctx1 = document.getElementById("chart-line").getContext("2d");
 

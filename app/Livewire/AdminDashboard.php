@@ -26,16 +26,16 @@ class AdminDashboard extends Component
     ->orderBy('date')
     ->get();
 
-        $timelineRaw = Vehicle::query()
-            ->selectRaw("DATE_FORMAT(purchase_date, '%b %Y') as m, COUNT(*) as total, MIN(purchase_date) as ord")
-            ->groupBy('m')
-            ->orderBy('ord')
-            ->pluck('total', 'm');   // e.g. ["Aug 2025" => 2, "Sep 2025" => 5]
+        // $timelineRaw = Vehicle::query()
+        //     ->selectRaw("DATE_FORMAT(purchase_date, '%b %Y') as m, COUNT(*) as total, MIN(purchase_date) as ord")
+        //     ->groupBy('m')
+        //     ->orderBy('ord')
+        //     ->pluck('total', 'm');   // e.g. ["Aug 2025" => 2, "Sep 2025" => 5]
 
-        $renewalsTimeline = [
-            'labels' => $timelineRaw->keys()->values()->all(),   // ["Aug 2025", "Sep 2025", ...]
-            'counts' => $timelineRaw->values()->all(),           // [2, 5, ...]
-        ];
+        // $renewalsTimeline = [
+        //     'labels' => $timelineRaw->keys()->values()->all(),   // ["Aug 2025", "Sep 2025", ...]
+        //     'counts' => $timelineRaw->values()->all(),           // [2, 5, ...]
+        // ];
 
 
 // Format for chart.js
@@ -44,6 +44,18 @@ class AdminDashboard extends Component
 
         $notifications = Notification::latest()->take(10)->get();
 
+
+        // Example: Count renewables grouped by month
+    $data = Renewable::selectRaw('MONTH(renewable_date) as month, COUNT(*) as total')
+        ->groupBy('month')
+        ->orderBy('month')
+        ->pluck('total', 'month');
+
+    $labels = $data->isNotEmpty() 
+        ? $data->keys()->map(fn($m) => Carbon::create()->month($m)->format('M'))->toArray() 
+        : [];
+    $data = $data->values()->toArray();
+
         return view('livewire.admin.pages.home', [
             'totalUsers' => $totalUsers,
             'totalVehicles' => $totalVehicles,
@@ -51,7 +63,9 @@ class AdminDashboard extends Component
             'upcomingRenewals' => $upcomingRenewals,
             'expiredDocuments' => $expiredDocuments,
             'notifications' => $notifications,
-            'renewalsTimeline' => $renewalsTimeline,
+            // 'renewalsTimeline' => $renewalsTimeline,
+            'labels' => $labels,
+            'data' => $data,
         ])->layout('layouts.admin.admin');
     }
 }
