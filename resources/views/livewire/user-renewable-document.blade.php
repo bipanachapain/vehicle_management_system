@@ -16,8 +16,8 @@
         <div class="card mb-4 shadow-sm">
             <div class="card-body">
                 <h5 class="card-title mb-3">
-                     {{ $vehicle->name }}
-                    <small class="text-muted">({{ $vehicle->vehicleType->name ?? '' }})</small>
+                     {{ $vehicle->id }}
+                    <small class="text-muted">({{ $vehicle->vehicleType->name?? '' }})</small>
                 </h5>
 
                 @forelse($vehicle->renewables as $renew)
@@ -83,7 +83,7 @@
                                 <select wire:model="vehicle_id" class="form-control">
                                     <option value="">-- Select Vehicle --</option>
                                     @foreach($vehicles as $v)
-                                        <option value="{{ $v->id }}">{{ $v->name }}</option>
+                                        <option value="{{ $v->id }}">{{ $v->id }}</option>
                                     @endforeach
                                 </select>
                                 @error('vehicle_id') <span class="text-danger small">{{ $message }}</span> @enderror

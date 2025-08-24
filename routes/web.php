@@ -35,7 +35,7 @@ Route::middleware(['auth', 'admin','verified'])->group(function () {
     Route::get('/admin/profile', \App\Livewire\AdminProfile::class)->name('admin.profile');
 });
 Route::middleware(['auth','verified'])->group(function () {
-    Route::get('/user/dashboard', UserDashboard::class)->name('user.dashboard');
+    Route::get('/', UserDashboard::class)->name('user.dashboard');
     Route::get('/vehicle-types', VehicleTypeUser::class)->name('vehicle.types');
     Route::get('/vehicles', VehicleLivewire::class)->name('vehicles.index');
      Route::get('/Renewable', RenewableLivewire::class)->name('renewable.index');

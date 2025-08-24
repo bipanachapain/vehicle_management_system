@@ -16,7 +16,7 @@
                 <div class="modal-content">
                     <form wire:submit.prevent="store">
                         <div class="modal-header">
-                            <h5 class="modal-title">Add Vehicle</h5>
+                            <h5 class="modal-title"><i class="ni ni-fat-add">Add Vehicle</h5>
                             <button type="button" wire:click="closeModal" class="close">
                                 <span>&times;</span>
                             </button>
@@ -25,7 +25,7 @@
                             {{-- Vehicle Number --}}
                             <div class="form-group">
                                 <label>Vehicle Number</label>
-                                <input type="text" wire:model="id" class="form-control">
+                               <input type="text" wire:model="id" class="form-control" placeholder="Enter Vehicle Number">
                             </div>
 
                             {{-- Vehicle Type --}}

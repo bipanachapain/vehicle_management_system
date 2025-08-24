@@ -60,5 +60,12 @@ class DocumentTypeAdmin extends Component
         $this->docId = null;
          $this->editMode = false;
     }
+
+    public function closeModal()
+    {
+        $this->isOpen = false;
+        $this->editMode = false;
+    
+    }
     
 }

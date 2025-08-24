@@ -49,7 +49,7 @@ class VehicleLivewire extends Component
         //     'name' => 'required',
         //     'purchase_date' => 'required|date'
         // ]);
-// dd($this->id);
+// dd($this->all());
         Vehicle::updateOrCreate(['id' => $this->id], [
              'user_id' => Auth::id(),
              'vehicle_type_id' => $this->vehicle_type_id,
