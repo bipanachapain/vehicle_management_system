@@ -20,16 +20,22 @@ class RenewableNotificationMail extends Mailable
     {
      $this->text = $text;
     }
+     public function build()
+    {
+        return $this->subject('Renewable Document Expiry Alert')
+                    ->view('livewire.user-notification')
+                    ->with(['text' => $this->text]);
+    }
 
     /**
      * Get the message envelope.
      */
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: 'Renewable Notification Mail',
-        );
-    }
+    // public function envelope(): Envelope
+    // {
+    //     return new Envelope(
+    //         subject: 'Renewable Notification Mail',
+    //     );
+    // }
 
     /**
      * Get the message content definition.

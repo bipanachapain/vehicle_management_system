@@ -58,14 +58,14 @@ class SendRenewableNotifications extends Command
             }
 
 
-            $message_template = Message::where('document_type_id', $renewable->document_type_id)->value('message');
-            if (!$message_template) {
+            // $message_template = Message::where('document_type_id', $renewable->document_type_id)->value('message');
+            // if (!$message_template) {
 
                 $message_template = ':document for :vehicle expires in :days_left day(s) on :expired_date.';
-            }
+            // }
 
-            $vehicleLabel = $renewable->vehicle->vechile_number
-                ?? $renewable->vehicle->name
+            $vehicleLabel = $renewable->vehicle->vehicle_number
+                ?? $renewable->vehicle->vehicle_number
                 ?? ('Vehicle#' . $renewable->vehicle_id);
 
             $documentLabel = $renewable->documentType->name ?? 'Document';
@@ -104,12 +104,13 @@ class SendRenewableNotifications extends Command
                 \App\Jobs\SendUserNotification::dispatch($userPhone, $text);
             }
             // Send email notification
-            $userEmail = $renewable->vehicle->user->email ?? null;
-            if ($userEmail) {
+            $userEmail = $renewable->vehicle->user->email;
+            // $userEmail ="chapai.bipana65@gmail.com";
+            // if ($userEmail) {
                 Mail::to($userEmail)->send(new RenewableNotificationMail($text));
+               
                // Mail::to($userEmail)->queue(new RenewableNotificationMail($text));
-            }
-            
+            // }
         }
 
         $this->info('Notifications created.');
