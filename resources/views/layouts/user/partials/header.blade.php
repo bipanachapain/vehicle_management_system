@@ -13,8 +13,10 @@
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!-- Argon CSS -->
+    <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ asset('assets/css/argon-dashboard.css?v=2.1.0') }}">
-    
+    <link rel="stylesheet" href="{{ asset('assets/usercss/style.css') }}">
     @livewireStyles
 </head>
 <body class="g-sidenav-show   bg-gray-100">

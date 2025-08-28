@@ -9,8 +9,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 class VehicleLivewire extends Component
 {
-     public $vehicles, $id, $user_id, $vehicle_type_id, $name, $purchase_date;
+     public $vehicles,$vehicle_number, $id, $user_id, $vehicle_type_id, $name, $purchase_date;
     public $isOpen = false;
+    public $editMode = false;
 
     public function render()
     {
@@ -24,6 +25,8 @@ class VehicleLivewire extends Component
     public function create()
     {
         $this->resetFields();
+          $this->id = null;
+        $this->editMode = false;
         $this->openModal();
     }
 
@@ -32,7 +35,7 @@ class VehicleLivewire extends Component
 
     public function resetFields()
     {
-        $this->id = '';
+        $this->vehicle_number = '';
         $this->user_id = '';
         $this->vehicle_type_id = '';
         $this->name = '';
@@ -42,16 +45,16 @@ class VehicleLivewire extends Component
     public function store()
     {
         
-        // $this->validate([
-        //       'id' => 'required|unique:vehicles,id',
-        //     'user_id' => 'required|exists:users,id',
-        //     'vehicle_type_id' => 'required|exists:vehicle_types,id',
-        //     'name' => 'required',
-        //     'purchase_date' => 'required|date'
-        // ]);
+        $this->validate([
+              'vehicle_number' => 'required|string|max:20|unique:vehicles,vehicle_number',
+              'vehicle_type_id' => 'required|exists:vehicle_types,id',
+              'name' => 'required',
+              'purchase_date' => 'required|date'
+        ]);
 // dd($this->all());
         Vehicle::updateOrCreate(['id' => $this->id], [
-             'user_id' => Auth::id(),
+            'vehicle_number'=> $this->vehicle_number, 
+            'user_id' => Auth::id(),
              'vehicle_type_id' => $this->vehicle_type_id,
             'name' => $this->name,
             'purchase_date' => $this->purchase_date
@@ -66,11 +69,13 @@ class VehicleLivewire extends Component
     {
         $vehicle = Vehicle::findOrFail($id);
         $this->id = $id;
+        $this->vehicle_number = $vehicle->vehicle_number;
         $this->user_id = $vehicle->user_id;
         $this->vehicle_type_id = $vehicle->vehicle_type_id;
         $this->name = $vehicle->name;
         $this->purchase_date = $vehicle->purchase_date;
 
+        $this->editMode = true; 
         $this->openModal();
     }
 

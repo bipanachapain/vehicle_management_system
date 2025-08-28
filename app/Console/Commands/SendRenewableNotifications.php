@@ -64,7 +64,7 @@ class SendRenewableNotifications extends Command
                 $message_template = ':document for :vehicle expires in :days_left day(s) on :expired_date.';
             }
 
-            $vehicleLabel = $renewable->vehicle->plate_number
+            $vehicleLabel = $renewable->vehicle->vechile_number
                 ?? $renewable->vehicle->name
                 ?? ('Vehicle#' . $renewable->vehicle_id);
 

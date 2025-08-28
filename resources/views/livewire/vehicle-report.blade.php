@@ -12,7 +12,7 @@
             <table class="table align-items-center mb-0">
                 <thead>
                     <tr>
-                        <th>Vehicle Name</th>
+                        <th>Vehicle Number</th>
                         <th>Type</th>
                         <th>Purchase Date</th>
                         <th>Action</th>
@@ -21,7 +21,7 @@
                 <tbody>
                     @foreach($vehicles as $vehicle)
                         <tr>
-                            <td>{{ $vehicle->name }}</td>
+                            <td>{{ $vehicle->vehicle_number }}</td>
                             <td>{{ $vehicle->vehicleType->name ?? 'N/A' }}</td>
                             <td>{{ $vehicle->purchase_date }}</td>
                             <td>

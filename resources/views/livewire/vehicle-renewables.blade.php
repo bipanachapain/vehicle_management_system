@@ -7,7 +7,7 @@
   <div class="container-fluid py-4">
     <div class="card mb-4">
         <div class="card-header pb-0">
-            <h6>Renewables for {{ $vehicle->name }}</h6>
+            <h6>Renewables for {{ $vehicle->vehicle_number }}</h6>
         </div>
         <div class="card-body">
             <table class="table align-items-center mb-0">

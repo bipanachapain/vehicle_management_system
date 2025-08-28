@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
     {
         // Example: run your notification command daily at 9am
           $schedule->command('renewables:notify')->dailyAt('06:00');
-        //   $schedule->command('renewables:notify')->everyMinute();
+         $schedule->command('renewables:notify')->everyMinute();
         //  $schedule->command('renewables:notify')->everyHour();
     }
 

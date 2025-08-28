@@ -4,7 +4,7 @@
         <div class="col-12">
                  <div class="p-6">
                       <h3 class="text-xl font-bold mb-4">
-                          📜 History for {{ $vehicle->name }} ({{ $document->name }})
+                          📜 History for {{ $vehicle->vehicle_number }} ({{ $document->name }})
                        </h3>
  
                         @forelse($histories as $history)
@@ -23,10 +23,7 @@
 
                       <a href="{{ url()->previous() }}" class="btn btn-secondary mt-4">⬅️ Back</a>
                    </div>
-
        </div>
     </div>
-</div>
-
-      
+</div>      
 </main>
