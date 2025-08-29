@@ -10,8 +10,8 @@
                         @forelse($histories as $history)
                          <div class="border rounded p-3 mb-2 bg-gray-50 shadow-sm">
                          <p>
-                          <strong>{{ $loop->iteration }}</strong>  
-                             Renewable: {{ $history->renewable_date }} → Expired: {{ $history->expired_date }}
+                          <strong>{{ $loop->iteration }}. </strong>  
+                               Renewable: {{ $history->renewable_date }} → Expired: {{ $history->expired_date }}
                          </p>
                           <small class="text-gray-600">
                            Recorded: {{ $history->created_at->format('Y-m-d H:i') }}

@@ -34,9 +34,14 @@
                                             <button wire:click="edit({{ $doc->id }})" class="btn btn-warning btn-sm">
                                                 <i class="ni ni-ruler-pencil">Edit</i>
                                             </button>
-                                            <button wire:click="delete({{ $doc->id }})" class="btn btn-danger btn-sm">
+                                            {{-- <button wire:click="delete({{ $doc->id }})" class="btn btn-danger btn-sm">
                                                 <i class="ni ni-fat-remove">Delete</i>
-                                            </button>
+                                            </button> --}}
+                                            <button 
+                                              onclick="if (confirm('Are you sure you want to delete this vehicle?')) { @this.delete('{{ $doc->id}}') }" 
+                                               class="btn btn-danger btn-sm">
+                                                 <i class="ni ni-fat-remove">Delete</i>
+                                                </button>
                                         </td>
                                     </tr>
                                 @empty

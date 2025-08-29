@@ -88,29 +88,30 @@ class SendRenewableNotifications extends Command
                 continue;
             }
 
-
-            Notification::create([
-                'renewable_id' => $renewable->id,
-                'message' => $text,
-            ]);
-            $userPhone = $renewable->vehicle->user->phone ?? null; // adjust if relation is different
+               $userPhone = $renewable->vehicle->user->phone ?? null;
+               $userEmail = $renewable->vehicle->user->email ?? null;
+ // adjust if relation is different
 //              if ($userPhone) {
 //              $service = app(\App\Services\NotificationService::class);
 //                  $service->sendSMS($userPhone, $text);
 //             $service->sendWhatsApp($userPhone, $text);
 // }
-            // Dispatch job to send SMS or WhatsApp notification
-            if ($userPhone) {
-                \App\Jobs\SendUserNotification::dispatch($userPhone, $text);
-            }
-            // Send email notification
-            $userEmail = $renewable->vehicle->user->email;
-            // $userEmail ="chapai.bipana65@gmail.com";
-            // if ($userEmail) {
-                Mail::to($userEmail)->send(new RenewableNotificationMail($text));
-               
-               // Mail::to($userEmail)->queue(new RenewableNotificationMail($text));
-            // }
+                
+           
+            
+
+                   if ($userPhone || $userEmail) {
+                          \App\Jobs\SendUserNotification::dispatch($userPhone, $userEmail, $text);
+                }
+            
+           
+
+           
+
+            Notification::create([
+                'renewable_id' => $renewable->id,
+                'message' => $text,
+            ]);
         }
 
         $this->info('Notifications created.');

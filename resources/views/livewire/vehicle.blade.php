@@ -96,8 +96,8 @@
 
                                 <div class="mb-3">
                                     <label>Purchase Date</label>
-                                    <input type="date" wire:model="purchase_date" class="form-control">
-                                    @error('purchase_date') <small class="text-danger">{{ $message }}</small> @enderror
+                                    <input type="date" wire:model="purchase_date" class="form-control" max="{{ now()->toDateString() }}">
+                                    @error("purchase_date") <small class="text-danger">{{ $message }}</small> @enderror
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -112,10 +112,11 @@
     {{-- Vehicle Table --}}
     <div class="card shadow">
         <div class="card-body">
-            <table class="table table-bordered table-hover">
-                <thead class="thead-light">
+            <div class="table-responsive mt-3">
+                       <table class="table table-hover align-items-center">
+                         <thead class="thead-light">
                     <tr>
-                        <th>Vehicle Number</th>
+                        <th >Vehicle Number</th>
                         <th>Vehicle Type</th>
                         <th>Name</th>
                         <th>Purchase Date</th>
@@ -125,21 +126,22 @@
                 <tbody>
                     @foreach($vehicles as $vehicle)
                         <tr>
-                            <td>{{ $vehicle->vehicle_number }}</td>
-                            <td>{{ $vehicle->vehicleType->name }}</td>
-                            <td>{{ $vehicle->name }}</td>
-                            <td>{{ $vehicle->purchase_date }}</td>
+                            <td class="text-sm">{{ $vehicle->vehicle_number }}</td>
+                            <td class="text-sm">{{ $vehicle->vehicleType->name }}</td>
+                            <td class="text-sm">{{ $vehicle->name }}</td>
+                            <td class="text-sm">{{ $vehicle->purchase_date }}</td>
                             <td>
                                 <button wire:click="edit({{ $vehicle->id }})" class="btn btn-warning btn-sm">Edit</button>
                                <button 
-    onclick="if (confirm('Are you sure you want to delete this vehicle?')) { @this.delete('{{ $vehicle->id }}') }" 
-    class="btn btn-danger btn-sm">
-    Delete
-</button>
+                               onclick="if (confirm('Are you sure you want to delete this vehicle?')) { @this.delete('{{ $vehicle->id }}') }" 
+                                  class="btn btn-danger btn-sm">
+                                 Delete
+                               </button>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 </div>

@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Vehicle;
 use App\Models\VehicleType;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 class VehicleLivewire extends Component
 {
@@ -42,30 +43,73 @@ class VehicleLivewire extends Component
         $this->purchase_date = '';
     }
 
-    public function store()
-    {
+//     public function store()
+//     {
         
+//         $this->validate([
+//               'vehicle_number' => 'required|string|max:20|unique:vehicles,vehicle_number',
+//               'vehicle_type_id' => 'required|exists:vehicle_types,id',
+//               'name' => 'required',
+//               'purchase_date' => 'required|date'
+//         ]);
+// // dd($this->all());
+//         Vehicle::updateOrCreate(['id' => $this->id], [
+//             'vehicle_number'=> $this->vehicle_number, 
+//             'user_id' => Auth::id(),
+//              'vehicle_type_id' => $this->vehicle_type_id,
+//             'name' => $this->name,
+//             'purchase_date' => $this->purchase_date
+//         ]);
+
+//         session()->flash('message', $this->id ? 'Vehicle updated.' : 'Vehicle created.');
+//         $this->closeModal();
+//         $this->resetFields();
+//     }
+
+public function store()
+{
+    if ($this->id) {
+        // Update
         $this->validate([
-              'vehicle_number' => 'required|string|max:20|unique:vehicles,vehicle_number',
-              'vehicle_type_id' => 'required|exists:vehicle_types,id',
-              'name' => 'required',
-              'purchase_date' => 'required|date'
+            'vehicle_type_id' => 'required|exists:vehicle_types,id',
+            'name' => 'required',
+            'purchase_date' => 'required|date'
         ]);
-// dd($this->all());
-        Vehicle::updateOrCreate(['id' => $this->id], [
-            'vehicle_number'=> $this->vehicle_number, 
-            'user_id' => Auth::id(),
-             'vehicle_type_id' => $this->vehicle_type_id,
+
+        $vehicle = Vehicle::findOrFail($this->id);
+        $vehicle->update([
+            // 'vehicle_number' => $this->vehicle_number, // 🚫 Do not update vehicle_number
+            'vehicle_type_id' => $this->vehicle_type_id,
             'name' => $this->name,
             'purchase_date' => $this->purchase_date
         ]);
 
-        session()->flash('message', $this->id ? 'Vehicle updated.' : 'Vehicle created.');
-        $this->closeModal();
-        $this->resetFields();
+        session()->flash('message', 'Vehicle updated.');
+    } else {
+        // Create
+        $this->validate([
+            'vehicle_number' => 'required|string|max:20|unique:vehicles,vehicle_number',
+            'vehicle_type_id' => 'required|exists:vehicle_types,id',
+            'name' => 'required',
+           'purchase_date' => 'required|date|before_or_equal:' . Carbon::today()->toDateString(),
+        ]);
+
+        Vehicle::create([
+            'vehicle_number'=> $this->vehicle_number, 
+            'user_id' => Auth::id(),
+            'vehicle_type_id' => $this->vehicle_type_id,
+            'name' => $this->name,
+            'purchase_date' => $this->purchase_date
+        ]);
+
+        session()->flash('message', 'Vehicle created.');
     }
 
-    public function edit($id)
+    $this->closeModal();
+    $this->resetFields();
+}
+    
+public function edit($id)
     {
         $vehicle = Vehicle::findOrFail($id);
         $this->id = $id;
