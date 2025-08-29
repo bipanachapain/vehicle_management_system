@@ -70,9 +70,9 @@
                         <h5 class="modal-title">
                             {{ $renewable_id ? 'Edit Document' : 'Add Document' }}
                         </h5>
-                        <button type="button" wire:click="$set('isOpen', false)" class="close">
+                        {{-- <button type="button" wire:click="$set('isOpen', false)" class="close">
                             <span>&times;</span>
-                        </button>
+                        </button> --}}
                     </div>
 
                     <div class="modal-body">

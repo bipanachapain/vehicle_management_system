@@ -8,7 +8,7 @@
          <div class="card shadow mb-4">
         <div class="card-header border-0 d-flex justify-content-between align-items-center">
             <h3 class="mb-0">Messages Management</h3>
-            <button wire:click="openModal()" class="btn btn-primary">➕ Add Message</button>
+            <button wire:click="openModal()" class="btn btn-primary">Add Message</button>
         </div>
 
         <div class="card-body">
@@ -51,7 +51,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ $updateMode ? 'Edit Message' : 'Add Message' }}</h5>
-                    <button type="button" class="btn-close" wire:click="closeModal()"></button>
+                    {{-- <button type="button" class="btn-close" wire:click="closeModal()"></button> --}}
                 </div>
                 <div class="modal-body">
                     <form wire:submit.prevent="store">

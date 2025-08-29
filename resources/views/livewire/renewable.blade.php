@@ -18,7 +18,7 @@
                 <div class="modal-content p-3">
                     <div class="modal-header">
                         <h5 class="modal-title">Add Renewable</h5>
-                        <button type="button" class="btn-close" wire:click="closeModal"></button>
+                        {{-- <button type="button" class="btn-close" wire:click="closeModal"></button> --}}
                     </div>
                     <div class="modal-body">
                         <div class="row g-3">
