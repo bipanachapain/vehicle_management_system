@@ -3,12 +3,16 @@
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
+           <h2 class="h4 font-weight-bold mb-4 text-center">Vehicle Management</h2>
+
 <div class="container-fluid mt-4">
     <button wire:click="create" class="btn btn-primary mb-3">Add Vehicle</button>
 
     @if(session()->has('message'))
         <div class="alert alert-success">{{ session('message') }}</div>
     @endif
+
+
 {{-- 
      @if($isOpen)
         <div class="modal fade show d-block" tabindex="-1" role="dialog" style="background: rgba(0,0,0,0.5);">

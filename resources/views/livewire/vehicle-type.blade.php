@@ -5,7 +5,7 @@
         <div class="col-12">
             <div class="card shadow mb-4">
     <div class="card-header border-0">
-        <h2 class="mb-0"><i class="ni ni-delivery-fast text-primary"></i> Vehicle Type Management</h2>
+        <h2 class="mb-0 text-center" >Vehicle Type Management</h2>
     </div>
     <div class="card-body">
 

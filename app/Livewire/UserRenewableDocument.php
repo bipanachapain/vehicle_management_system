@@ -112,7 +112,8 @@ class UserRenewableDocument extends Component
     ]);
 
 
-        session()->flash('success', 'Document saved successfully ✅');
+        session()->flash('message', 'Document saved successfully ✅');
+        
         $this->resetForm();
         $this->isOpen = false;
         $this->loadData(); // refresh list

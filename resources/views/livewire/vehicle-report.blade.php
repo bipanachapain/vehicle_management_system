@@ -6,8 +6,14 @@
             <div class="container-fluid py-4">
     <div class="card mb-4">
         <div class="card-header pb-0">
-            <h6>Vehicles of {{ $user->name }}</h6>
+            <h6 class="text-center">Vehicles of {{ $user->name }}</h6>
         </div>
+         @if (session()->has('message'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('message') }}
+                
+            </div>
+        @endif
         <div class="card-body">
             <table class="table align-items-center mb-0">
                 <thead>

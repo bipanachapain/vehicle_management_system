@@ -4,6 +4,12 @@
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
+             @if (session()->has('message'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('message') }}
+                
+            </div>
+        @endif
 
             <!-- Card -->
             <div class="card">

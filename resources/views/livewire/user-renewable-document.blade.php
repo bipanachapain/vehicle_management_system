@@ -4,7 +4,12 @@
         <div class="col-12">
              <div class="p-4">
     <h2 class="h4 font-weight-bold mb-4">My Renewable Documents</h2>
-
+   @if (session()->has('message'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('message') }}
+               
+            </div>
+        @endif
     {{-- Add Button --}}
     <button wire:click="create" 
             class="btn btn-primary mb-3">
@@ -104,7 +109,7 @@
                             {{-- Renewable Date --}}
                             <div class="form-group">
                                 <label>Renewable Date</label>
-                                <input type="date" wire:model="renewable_date" class="form-control">
+                                <input type="date" wire:model="renewable_date" class="form-control"  max="{{ now()->toDateString() }}">
                                 @error('renewable_date') <span class="text-danger small">{{ $message }}</span> @enderror
                             </div>
 

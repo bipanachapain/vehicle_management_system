@@ -33,6 +33,7 @@ class DocumentTypeAdmin extends Component
             'duration' => $this->duration
         ]);
 
+         session()->flash('message', 'Document Update.');
         $this->isOpen = false;
         $this->resetFields();
     }
