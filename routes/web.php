@@ -46,11 +46,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/profile', \App\Livewire\UserProfile::class)->name('user.profile');
    
 
-    Route::get('/test-mail', function () {
-    $text = "This is a test email.";
-    Mail::to("chapai.bipana65@gmail.com")->send(new \App\Mail\RenewableNotificationMail($text));
-    return "Mail Sent!";
-});
+    Route::get('/user/roles', \App\Livewire\UserRoles::class)->name('user.roles');
 });
 
 require __DIR__.'/auth.php';

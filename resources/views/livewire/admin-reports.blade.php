@@ -6,7 +6,7 @@
             <div class="container-fluid py-4">
     <div class="card mb-4">
         <div class="card-header pb-0">
-            <h6>Users Report</h6>
+            <h6 class="">Users Report</h6>
         </div>
         <div class="card-body">
             <table class="table align-items-center mb-0">

@@ -14,7 +14,7 @@
             <!-- Card -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Document Types</h5>
+                    <h5 class="mb-0 text-center">Document Types</h5>
                     <button wire:click="create" class="btn btn-primary btn-sm">
                         <i class="ni ni-fat-add"></i> Add New
                     </button>
