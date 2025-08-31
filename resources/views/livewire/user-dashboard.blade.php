@@ -23,6 +23,7 @@
         <table class="w-full text-left">
             <thead>
                 <tr>
+                    <td>S.N</td>
                     <th class="py-2">Vehicle</th>
                     <th class="py-2">Document</th>
                     <th class="py-2">Expiry Date</th>
@@ -31,6 +32,7 @@
             <tbody>
                 @forelse($upcomingRenewals as $renewal)
                     <tr>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $renewal->vehicle->name }}</td>
                         <td>{{ $renewal->documentType->name }}</td>
                         <td>{{ $renewal->expired_date }}</td>

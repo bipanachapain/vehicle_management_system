@@ -13,6 +13,7 @@
             <table class="table align-items-center mb-0">
                 <thead>
                     <tr>
+                        <td>S.N</td>
                         <th>Document</th>
                         <th>Renew Date</th>
                         <th>Expire Date</th>
@@ -22,6 +23,7 @@
                 <tbody>
                     @foreach($renewables as $r)
                         <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $r->documentType->name ?? 'N/A' }}</td>
                             <td>{{ $r->renewable_date }}</td>
                             <td>{{ $r->expired_date }}</td>

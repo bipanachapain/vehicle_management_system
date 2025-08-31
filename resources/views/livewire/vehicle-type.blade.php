@@ -13,9 +13,7 @@
         @if (session()->has('message'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('message') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span>&times;</span>
-                </button>
+                
             </div>
         @endif
 
@@ -38,7 +36,7 @@
             <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                     <tr>
-                        <th scope="col">ID</th>
+                        <th scope="col">S.N</th>
                         <th scope="col">Name</th>
                         <th scope="col" class="text-center">Actions</th>
                     </tr>
@@ -46,18 +44,23 @@
                 <tbody>
                     @forelse ($vehicleTypes as $type)
                         <tr>
-                            <td>{{ $type->id }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $type->name }}</td>
                             <td class="text-center">
                                 <button wire:click="edit({{ $type->id }})"
                                         class="btn btn-sm btn-warning">
                                     Edit
                                 </button>
-                                <button wire:click="delete({{ $type->id }})"
+                                <button 
+                               onclick="if (confirm('Are you sure you want to delete this vehicle?')) { @this.delete('{{ $type->id }}') }" 
+                                  class="btn btn-danger btn-sm">
+                                 Delete
+                               </button>
+                                {{-- <button wire:click="delete({{ $type->id }})"
                                         onclick="return confirm('Delete this type?')"
                                         class="btn btn-sm btn-danger">
                                     Delete
-                                </button>
+                                </button> --}}
                             </td>
                         </tr>
                     @empty

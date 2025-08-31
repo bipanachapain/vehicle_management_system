@@ -18,6 +18,7 @@
             <table class="table align-items-center mb-0">
                 <thead>
                     <tr>
+                        <th>S.N</th>
                         <th>Vehicle Number</th>
                         <th>Type</th>
                         <th>Purchase Date</th>
@@ -27,6 +28,7 @@
                 <tbody>
                     @foreach($vehicles as $vehicle)
                         <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $vehicle->vehicle_number }}</td>
                             <td>{{ $vehicle->vehicleType->name ?? 'N/A' }}</td>
                             <td>{{ $vehicle->purchase_date }}</td>

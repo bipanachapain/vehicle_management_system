@@ -26,6 +26,7 @@
                        <table class="table table-hover align-items-center">
                          <thead class="thead-light">
                             <tr>
+                                <th>S.N</th>
                                     <th >Name</th>
                                     <th >Duration</th>
                                     <th class="text-end">Actions</th>
@@ -34,6 +35,7 @@
                             <tbody>
                                 @forelse($documentTypes as $doc)
                                     <tr>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td class="text-sm">{{ $doc->name }}</td>
                                         <td class="text-sm">{{ $doc->duration }}</td>
                                         <td class="text-end">

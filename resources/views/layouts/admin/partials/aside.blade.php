@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="{{route('admin.dashboard')}}">
+          <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{route('admin.dashboard')}}">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-tv-2 text-dark text-sm opacity-10"></i>
             </div>
@@ -18,7 +18,7 @@
           </a>
         </li>
          <li class="nav-item">
-          <a class="nav-link " href="{{ route('vehicle.types') }}">
+          <a class="nav-link {{ request()->routeIs('vehicle.types') ? 'active' : '' }}" href="{{ route('vehicle.types') }}">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-world-2 text-dark text-sm opacity-10"></i>
             </div>
@@ -26,7 +26,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="{{route('admin.messages')}}">
+          <a class="nav-link {{ request()->routeIs('admin.messages') ? 'active' : '' }}" href="{{route('admin.messages')}}">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-calendar-grid-58 text-dark text-sm opacity-10"></i>
             </div>
@@ -34,7 +34,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="{{ route('admin.document.types') }}">
+          <a class="nav-link {{ request()->routeIs('admin.document.types') ? 'active' : '' }}" href="{{ route('admin.document.types') }}">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-credit-card text-dark text-sm opacity-10"></i>
             </div>
@@ -42,7 +42,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="{{route('admin.reports')}}">
+          <a class="nav-link {{ request()->routeIs('admin.reports') ? 'active' : '' }}" href="{{route('admin.reports')}}">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-app text-dark text-sm opacity-10"></i>
             </div>
@@ -61,7 +61,7 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="{{ route('admin.profile') }}">
+          <a class="nav-link {{ request()->routeIs('admin.profile') ? 'active' : '' }}" href="{{ route('admin.profile') }}">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
             </div>
