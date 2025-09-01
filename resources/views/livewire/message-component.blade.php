@@ -7,7 +7,7 @@
           <div>
          <div class="card shadow mb-4">
         <div class="card-header border-0 d-flex justify-content-between align-items-center">
-            <h3 class="mb-0">Messages Management</h3>
+            <h3 class="mb-0 text-center">Messages Management</h3>
             <button wire:click="openModal()" class="btn btn-primary">Add Message</button>
         </div>
 

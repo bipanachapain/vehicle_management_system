@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-12">
              <div class="p-4">
-    <h2 class="h4 font-weight-bold mb-4">My Renewable Documents</h2>
+    <h2 class="text-xl font-bold mb-4 text-center">My Renewable Documents</h2>
    @if (session()->has('message'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('message') }}

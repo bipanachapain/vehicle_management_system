@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+ 
 use App\Models\DocumentType;
 class DocumentTypeAdmin extends Component
 {
@@ -10,9 +11,10 @@ class DocumentTypeAdmin extends Component
     public $isOpen = false;
     public $editMode = false;
     public function render()
-    {
-         $this->documentTypes = DocumentType::all();
-        return view('livewire.document-type')->layout('layouts.admin.admin');
+    { 
+          $document  = DocumentType::paginate(5); 
+        //   $this->documentTypes = DocumentType::all();
+        return view('livewire.document-type',compact('document'))->layout('layouts.admin.admin');
     }
     public function create()
     {

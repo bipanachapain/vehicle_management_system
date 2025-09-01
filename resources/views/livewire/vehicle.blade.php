@@ -3,10 +3,10 @@
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
-           <h2 class="h4 font-weight-bold mb-4 text-center">Vehicle Management</h2>
+           <h2 class="text-xl font-bold mb-4 text-center">Vehicle Management</h2>
 
 <div class="container-fluid mt-4">
-    <button wire:click="create" class="btn btn-primary mb-3">Add Vehicle</button>
+    <button wire:click="create" class="btn btn-primary mb-3"><i class="ni ni-fat-add"></i>Add Vehicle</button>
 
     @if(session()->has('message'))
         <div class="alert alert-success">{{ session('message') }}</div>

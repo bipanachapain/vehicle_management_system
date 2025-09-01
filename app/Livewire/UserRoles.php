@@ -20,7 +20,7 @@ class UserRoles extends Component
         return view('livewire.user-roles' , compact( 'users','roles'))->layout('layouts.admin.admin');
     }
 
-    public function undateRole($userId, $role)
+    public function updateRole($userId, $role)
     {
          $user = User::findOrFail($userId);
         $user->role = $role;

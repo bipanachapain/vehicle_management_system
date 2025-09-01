@@ -4,7 +4,7 @@
 <div class="container-fluid py-4">
 
            <div class="card shadow">
-    <div class="card-header border-0">
+    <div class="card-header border-0 text-center">
         <h3 class="mb-0">Manage User Roles</h3>
     </div>
     @if(session()->has('message'))
@@ -32,7 +32,7 @@
 
                                 @else bg-info @endif
                             ">
-                                {{-- {{ ucfirst($user->role) }} --}}
+                                {{$user->role}}
                             </span>
                         </td>
                         <td>
@@ -40,7 +40,7 @@
                                     class="form-control form-control-sm">
                                 @foreach($roles as $role)
                                     <option value="{{ $role }}" {{ $user->role == $role ? 'selected' : '' }}>
-                                        {{-- {{ ucfirst($role) }} --}}
+                                       {{ $role}}
                                     </option>
                                 @endforeach
                             </select>

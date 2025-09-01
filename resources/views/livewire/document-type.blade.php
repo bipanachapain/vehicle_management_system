@@ -13,8 +13,9 @@
 
             <!-- Card -->
             <div class="card">
+                 <h2 class="text-xl font-bold mb-4 text-center">Document Type</h2>
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0 text-center">Document Types</h5>
+                      
                     <button wire:click="create" class="btn btn-primary btn-sm">
                         <i class="ni ni-fat-add"></i> Add New
                     </button>
@@ -33,7 +34,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($documentTypes as $doc)
+                                @forelse($document as $doc)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td class="text-sm">{{ $doc->name }}</td>
@@ -96,7 +97,9 @@
         </div>
     </div>
 </div>
-
+<div class="mt-3">
+    {{ $document->links() }}
+</div>
       
 </main>
 

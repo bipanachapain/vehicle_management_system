@@ -3,8 +3,8 @@
     <div class="row">
         <div class="col-12">
             <div class="p-4">
-    <h2 class="text-xl font-bold mb-4">Recent Notifications</h2>
-
+    <h2 class="text-xl font-bold mb-4 text-center">Recent Notifications</h2>
+     
     @forelse($notifications as $notification)
         <div class="border p-3 rounded mb-2">
             <p>{{ $notification->message }}</p>

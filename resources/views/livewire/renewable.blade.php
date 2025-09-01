@@ -10,7 +10,7 @@
         <div class="col-12">    
 <div class="card shadow border-0">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Renewable Documents</h5>
+        <h5 class=" text-xl font-bold mb-4 text-center">Renewable Documents</h5>
         <button wire:click="create" class="btn btn-primary btn-sm">
             <i class="ni ni-fat-add"></i> Add Renewable
         </button>
