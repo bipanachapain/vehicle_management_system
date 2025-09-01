@@ -13,10 +13,11 @@ class AdminReports extends Component
     public function mount()
     {
         // Eager load relationships
-          $this->users = User::withCount('vehicles')->get();
+        //   $this->users = User::withCount('vehicles')->get();
     }
     public function render()
     {
-        return view('livewire.admin-reports')->layout('layouts.admin.admin');
+        $users= User::withCount('vehicles')->paginate(10);
+        return view('livewire.admin-reports' , compact('users'))->layout('layouts.admin.admin');
     }
 }

@@ -19,10 +19,11 @@ class MessageComponent extends Component
 
     public function render()
     {
-        return view('livewire.message-component', [
-            'messagesList' => Message::with('documentType')->get(),
-            'documentTypes' => DocumentType::all(),
-        ])->layout('layouts.admin.admin');
+
+        $messagesList = Message::with('documentType')->get();
+        $documentTypes = DocumentType::all();
+        return view('livewire.message-component', compact('messagesList','documentTypes')
+        )->layout('layouts.admin.admin');
     }
 
     public function resetInputFields(): void
