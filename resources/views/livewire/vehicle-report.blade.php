@@ -4,10 +4,11 @@
     <div class="row">
         <div class="col-12">
             <div class="container-fluid py-4">
+                <h2 class="text-xl font-bold mb-4 text-center">Vehicles of {{ $user->name }}</h2>
     <div class="card mb-4">
-        <div class="card-header pb-0">
+        {{-- <div class="card-header pb-0">
             <h6 class="text-center">Vehicles of {{ $user->name }}</h6>
-        </div>
+        </div> --}}
          @if (session()->has('message'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('message') }}

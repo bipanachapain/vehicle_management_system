@@ -4,10 +4,12 @@
     <div class="row">
         <div class="col-12">
             <div class="container-fluid py-4">
+                <h2 class="text-xl font-bold mb-4 text-center">Users Report</h2>
     <div class="card mb-4">
-        <div class="card-header pb-0">
-            <h6 class="">Users Report</h6>
-        </div>
+        {{-- <h6 class="text-xl font-bold mb-4 text-center">Users Report</h6> --}}
+        {{-- <div class="card-header pb-0">
+            
+        </div> --}}
         <div class="card-body">
             <table class="table align-items-center mb-0">
                 <thead>
@@ -19,7 +21,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($users as $user)
+                    @foreach($userView as $user)
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
@@ -44,7 +46,7 @@
     </div>
 </div>
 <div class="mt-3">
-    {{ $users->links() }}
+    {{ $userView->links() }}
 </div>
       
 </main>

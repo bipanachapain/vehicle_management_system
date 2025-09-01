@@ -8,10 +8,12 @@ use App\Models\RenewableHistory;
 use App\Models\Vehicle;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Livewire\WithPagination;
 use Carbon\Carbon;
 
 class UserRenewableDocument extends Component
 {
+    use WithPagination;
     public $vehicles = [];
     
     public $renewable_id;
@@ -31,18 +33,28 @@ class UserRenewableDocument extends Component
         $this->documentTypes = DocumentType::all();
 
         // Load vehicles with renewables, document type, and notifications
-        $this->vehicles = Vehicle::with([
-            'vehicleType',
-            'renewables.documentType',
-            'renewables.notifications',
-            'renewables.renewableHistories'
-        ])->where('user_id', $user->id)->get();
+    //     $this->vehicles = Vehicle::with([
+    //         'vehicleType',
+    //         'renewables.documentType',
+    //         'renewables.notifications',
+    //         'renewables.renewableHistories'
+    //     ])->where('user_id', $user->id)->get();
     }
     public function render()
     {
-        return view('livewire.user-renewable-document',[
-            'vehicles' => $this->vehicles,
-        ])->layout('layouts.user.user');
+
+        $vehicles = Vehicle::with([
+        'vehicleType',
+        'renewables.documentType',
+        'renewables.notifications',
+        'renewables.renewableHistories'
+    ])->where('user_id', Auth::id())->paginate(5);
+
+    $allVehicles = Vehicle::where('user_id', Auth::id())->get();
+    $documentTypes = DocumentType::all();
+
+    return view('livewire.user-renewable-document', compact('vehicles', 'allVehicles', 'documentTypes'))
+        ->layout('layouts.user.user');
     }
     public function loadData()
     {

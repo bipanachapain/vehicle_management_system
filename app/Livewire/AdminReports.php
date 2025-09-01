@@ -17,7 +17,7 @@ class AdminReports extends Component
     }
     public function render()
     {
-        $users= User::withCount('vehicles')->paginate(10);
-        return view('livewire.admin-reports' , compact('users'))->layout('layouts.admin.admin');
+        $userView= User::withCount('vehicles')->paginate(10);
+        return view('livewire.admin-reports' , compact('userView'))->layout('layouts.admin.admin');
     }
 }

@@ -66,6 +66,10 @@
         <p class="text-muted">No vehicles found.</p>
     @endforelse
 
+    {{-- <div class="mt-3">
+    {{ $vehicles->links() }}
+    </div> --}}
+
     {{-- Popup Modal --}}
     @if($isOpen)
         <div class="modal fade show d-block" tabindex="-1" role="dialog" style="background: rgba(0,0,0,0.5);">
@@ -87,7 +91,7 @@
                                 <label>Vehicle</label>
                                 <select wire:model="vehicle_id" class="form-control">
                                     <option value="">-- Select Vehicle --</option>
-                                    @foreach($vehicles as $v)
+                                    @foreach($allVehicles as $v)
                                         <option value="{{ $v->id }}">{{ $v->vehicle_number }}</option>
                                     @endforeach
                                 </select>
@@ -147,4 +151,5 @@
            </div>
     </div>
 </div>
+
 </main>
