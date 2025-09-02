@@ -15,61 +15,6 @@
             class="btn btn-primary mb-3">
         <i class="ni ni-fat-add"></i> Add Document
     </button>
-
-    {{-- List Vehicles + Documents --}}
-    @forelse($vehicles as $vehicle)
-        <div class="card mb-4 shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title mb-3">
-                     {{ $vehicle->vehicle_number }}
-                    <small class="text-muted">({{ $vehicle->vehicleType->name?? '' }})</small>
-                </h5>
-
-                @forelse($vehicle->renewables as $renew)
-                    <div class="border-top pt-2 mt-2">
-                        <p class="mb-1">
-                            <strong>📄 {{ $renew->documentType->name }}</strong>
-                        </p>
-                        <p class="mb-1">Renewable: {{ $renew->renewable_date }} → Expired: {{ $renew->expired_date }}</p>
-                        <!-- #region -->
-                        @php
-                          $daysLeft = now()->diffInDays($renew->expired_date, false);
-                          @endphp
-
-                        {{-- Status --}}
-                        @if($daysLeft < 0)
-                        <span class="px-2 py-1 rounded bg-red-100 text-red-700 text-sm font-semibold">❌ Expired</span>
-                         @elseif($daysLeft <= 30)
-                          <span class="px-2 py-1 rounded bg-yellow-100 text-yellow-700 text-sm font-semibold">⚠️ Expiring Soon</span>
-                        @else
-                         <span class="px-2 py-1 rounded bg-green-100 text-green-700 text-sm font-semibold">✅ Active</span>
-                        @endif
-
-                        {{-- Edit button --}}
-                        <button wire:click="edit({{ $renew->id }})" 
-                                class="btn btn-primary mb-3">
-                            ✏️ Edit
-                        </button>
-                        <a href="{{ route('renewable.history', ['vehicle' => $vehicle->id, 'document' => $renew->document_type_id]) }}"
-                         class="btn btn-primary mb-3">
-                         📜 Show History
-                        </a>
-                    </div>
-
-                            
-                @empty
-                    <p class="text-muted">No documents yet.</p>
-                @endforelse
-            </div>
-        </div>
-    @empty
-        <p class="text-muted">No vehicles found.</p>
-    @endforelse
-
-    {{-- <div class="mt-3">
-    {{ $vehicles->links() }}
-    </div> --}}
-
     {{-- Popup Modal --}}
     @if($isOpen)
         <div class="modal fade show d-block" tabindex="-1" role="dialog" style="background: rgba(0,0,0,0.5);">
@@ -146,10 +91,66 @@
             </div>
         </div>
     @endif
+
+    {{-- List Vehicles + Documents --}}
+    @forelse($vehicles as $vehicle)
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title mb-3">
+                     {{ $vehicle->vehicle_number }}
+                    <small class="text-muted">({{ $vehicle->vehicleType->name?? '' }})</small>
+                </h5>
+
+                @forelse($vehicle->renewables as $renew)
+                    <div class="border-top pt-2 mt-2">
+                        <p class="mb-1">
+                            <strong>📄 {{ $renew->documentType->name }}</strong>
+                        </p>
+                        <p class="mb-1">Renewable: {{ $renew->renewable_date }} → Expired: {{ $renew->expired_date }}</p>
+                        <!-- #region -->
+                        @php
+                          $daysLeft = now()->diffInDays($renew->expired_date, false);
+                          @endphp
+
+                        {{-- Status --}}
+                        @if($daysLeft < 0)
+                        <span class="px-2 py-1 rounded bg-red-100 text-red-700 text-sm font-semibold">❌ Expired</span>
+                         @elseif($daysLeft <= 30)
+                          <span class="px-2 py-1 rounded bg-yellow-100 text-yellow-700 text-sm font-semibold">⚠️ Expiring Soon</span>
+                        @else
+                         <span class="px-2 py-1 rounded bg-green-100 text-green-700 text-sm font-semibold">✅ Active</span>
+                        @endif
+
+                        {{-- Edit button --}}
+                        <button wire:click="edit({{ $renew->id }})" 
+                                class="btn btn-primary mb-3">
+                            ✏️ Edit
+                        </button>
+                        <a href="{{ route('renewable.history', ['vehicle' => $vehicle->id, 'document' => $renew->document_type_id]) }}"
+                         class="btn btn-primary mb-3">
+                         📜 Show History
+                        </a>
+                    </div>
+
+                            
+                @empty
+                    <p class="text-muted">No documents yet.</p>
+                @endforelse
+            </div>
+        </div>
+    @empty
+        <p class="text-muted">No vehicles found.</p>
+    @endforelse
+
+    
+
+    
              </div>
 
            </div>
     </div>
 </div>
-
+{{-- <div class="mt-3">
+    {{ $vehicles->links() }}
+    </div> --}}
 </main>

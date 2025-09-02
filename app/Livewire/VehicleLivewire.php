@@ -16,11 +16,11 @@ class VehicleLivewire extends Component
 
     public function render()
     {
-        $this->vehicles = Vehicle::with('vehicleType', 'user')->get();
-        return view('livewire.vehicle', [
-            'vehicleTypes' => VehicleType::all(),
-           
-        ])->layout('layouts.user.user');
+       $userVehicles = Vehicle::with('vehicleType', 'user')
+    ->where('user_id', Auth::id())  
+    ->paginate(5);
+        $vehicleTypes = VehicleType::all();
+        return view('livewire.vehicle', compact('userVehicles','vehicleTypes'))->layout('layouts.user.user');
     }
 
     public function create()

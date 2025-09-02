@@ -120,7 +120,8 @@
                        <table class="table table-hover align-items-center">
                          <thead class="thead-light">
                     <tr>
-                        <th >Vehicle Number</th>
+                    <th> S.N</th>
+                        <th>Vehicle Number</th>
                         <th>Vehicle Type</th>
                         <th>Name</th>
                         <th>Purchase Date</th>
@@ -128,8 +129,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($vehicles as $vehicle)
+                    @foreach($userVehicles as $vehicle)
                         <tr>
+                            <td class="text-sm"> {{$loop->iteration }}</td>
                             <td class="text-sm">{{ $vehicle->vehicle_number }}</td>
                             <td class="text-sm">{{ $vehicle->vehicleType->name }}</td>
                             <td class="text-sm">{{ $vehicle->name }}</td>
@@ -154,6 +156,8 @@
 </div>
     </div>
 </div>
-
+ <div class="mt-3">
+    {{ $userVehicles->links() }}
+    </div>
       
 </main>

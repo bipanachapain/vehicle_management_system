@@ -51,6 +51,7 @@ class UserRenewableDocument extends Component
     ])->where('user_id', Auth::id())->paginate(5);
 
     $allVehicles = Vehicle::where('user_id', Auth::id())->get();
+    //  dd(    $vehicles);
     $documentTypes = DocumentType::all();
 
     return view('livewire.user-renewable-document', compact('vehicles', 'allVehicles', 'documentTypes'))
