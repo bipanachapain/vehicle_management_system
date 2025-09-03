@@ -35,15 +35,19 @@ class SendUserNotification implements ShouldQueue
     public function handle(NotificationService $service): void
     {
 
-            if ($this->phone) {
-                $service->sendSMS($this->phone, $this->message);
-                 $service->sendWhatsApp($this->phone, $this->message);
-           }
+            
         // Send SMS
        if ($this->email) {
             Mail::to($this->email)->send(new RenewableNotificationMail($this->message));
+        if (count(Mail::failures()) > 0) {
+        \Log::error('Mail failed to send: ' . implode(', ', Mail::failures()));
+    }
         }
-
+        
+      if ($this->phone) {
+                $service->sendSMS($this->phone, $this->message);
+                 $service->sendWhatsApp($this->phone, $this->message);
+           }
 
     }
 }
