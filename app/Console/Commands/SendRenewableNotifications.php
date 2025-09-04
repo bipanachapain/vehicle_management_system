@@ -30,12 +30,10 @@ class SendRenewableNotifications extends Command
     {
         $today = Carbon::today();
         $end = Carbon::today()->addDays(3);
-
         // Fetch renewables that are already expired or will expire within 3 days
         // $renewables = Renewable::with(['vehicle.user', 'documentType'])
         //     ->whereDate('expired_date', '<=', $end->toDateString())
         //     ->get();
-
         // foreach ($renewables as $renewable) {
         //     // Only take the latest record for each vehicle + document type
         //     $latest = Renewable::where('vehicle_id', $renewable->vehicle_id)
@@ -119,18 +117,14 @@ class SendRenewableNotifications extends Command
                 // Only take the latest record for each vehicle + document type
                 return $group->sortByDesc('renewable_date')->sortByDesc('id')->first();
             });
-
         foreach ($renewables as $renewable) {
             $daysLeft = $today->diffInDays(Carbon::parse($renewable->expired_date), false);
-
             if ($daysLeft > 3) {
                 continue; // skip too far in the future
             }
-
             $vehicleLabel   = $renewable->vehicle->vehicle_number ?? ('Vehicle#' . $renewable->vehicle_id);
             $documentLabel  = $renewable->documentType->name ?? 'Document';
             $expiredDateStr = Carbon::parse($renewable->expired_date)->format('Y-m-d');
-
             // Build message text
             if ($daysLeft < 0) {
                 $text = "$documentLabel for $vehicleLabel already expired " . abs($daysLeft) . " day(s) ago (on $expiredDateStr).";
@@ -139,34 +133,27 @@ class SendRenewableNotifications extends Command
             } else {
                 $text = "$documentLabel for $vehicleLabel expires in $daysLeft day(s) on $expiredDateStr.";
             }
-
             // Prevent duplicate notifications for the same renewable on the same day
             $already = Notification::where('renewable_id', $renewable->id)
                 ->whereDate('created_at', $today->toDateString())
                 ->where('message', $text)
                 ->exists();
-
             if ($already) {
                 continue;
             }
-
             // Save notification in DB
             Notification::create([
                 'renewable_id' => $renewable->id,
                 'message'      => $text,
             ]);
-
             // Collect contact info
             $userPhone = $renewable->vehicle->user->phone ?? null;
             $userEmail = $renewable->vehicle->user->email ?? null;
-
             // Dispatch job for sending mail/SMS
             if ($userPhone || $userEmail) {
                 \App\Jobs\SendUserNotification::dispatch($userPhone, $userEmail, $text);
             }
         }
-
-
         $this->info('Notifications created successfully.');
         return self::SUCCESS;
     }

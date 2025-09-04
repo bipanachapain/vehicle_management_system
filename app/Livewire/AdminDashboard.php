@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Vehicle;
 use Livewire\Component;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+
 
 
 class AdminDashboard extends Component
@@ -21,41 +23,36 @@ class AdminDashboard extends Component
         $upcomingRenewals = Renewable::whereDate('Expired_date', '>=', Carbon::today())
             ->whereDate('Expired_date', '<=', Carbon::today()->addDays(30))
             ->get();
-        $renewalsTimelineData = Renewable::selectRaw('DATE(Expired_date) as date, COUNT(*) as count')
-    ->groupBy('date')
-    ->orderBy('date')
-    ->get();
 
-        // $timelineRaw = Vehicle::query()
-        //     ->selectRaw("DATE_FORMAT(purchase_date, '%b %Y') as m, COUNT(*) as total, MIN(purchase_date) as ord")
-        //     ->groupBy('m')
-        //     ->orderBy('ord')
-        //     ->pluck('total', 'm');   // e.g. ["Aug 2025" => 2, "Sep 2025" => 5]
-
-        // $renewalsTimeline = [
-        //     'labels' => $timelineRaw->keys()->values()->all(),   // ["Aug 2025", "Sep 2025", ...]
-        //     'counts' => $timelineRaw->values()->all(),           // [2, 5, ...]
-        // ];
-
-
-// Format for chart.js
 
         $expiredDocuments = Renewable::whereDate('Expired_date', '<', Carbon::today())->get();
 
         $notifications = Notification::latest()->take(10)->get();
 
 
-        // Example: Count renewables grouped by month
+        
     $data = Renewable::selectRaw('MONTH(renewable_date) as month, COUNT(*) as total')
         ->groupBy('month')
         ->orderBy('month')
         ->pluck('total', 'month');
 
-    $labels = $data->isNotEmpty() 
-        ? $data->keys()->map(fn($m) => Carbon::create()->month($m)->format('M'))->toArray() 
-        : [];
-    $data = $data->values()->toArray();
+        $monthlyUsers = User::select(
+           DB::raw('MONTH(created_at) as month_number'),
+                  DB::raw('COUNT(*) as count')
+         ) ->groupBy('month_number')->orderBy('month_number')->pluck('count', 'month_number'); 
+        $months = [
+               1 => 'Jan', 2 => 'Feb', 3 => 'Mar', 4 => 'Apr', 
+              5 => 'May', 6 => 'Jun', 7 => 'Jul', 8 => 'Aug', 
+              9 => 'Sep', 10 => 'Oct', 11 => 'Nov', 12 => 'Dec'
+             ];
+      $labels = array_values($months);
+      $data = [];
+      foreach ($months as $num => $name) {
+           $data[] = $monthlyUsers[$num] ?? 0; 
+      }
 
+
+    $recentUsers = User::latest()->take(5)->get();
         return view('livewire.admin.pages.home', [
             'totalUsers' => $totalUsers,
             'totalVehicles' => $totalVehicles,
@@ -63,9 +60,9 @@ class AdminDashboard extends Component
             'upcomingRenewals' => $upcomingRenewals,
             'expiredDocuments' => $expiredDocuments,
             'notifications' => $notifications,
-            // 'renewalsTimeline' => $renewalsTimeline,
             'labels' => $labels,
             'data' => $data,
+               'recentUsers' => $recentUsers,
         ])->layout('layouts.admin.admin');
     }
 }
