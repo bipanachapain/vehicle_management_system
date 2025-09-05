@@ -50,49 +50,49 @@ class SendUserNotification implements ShouldQueue
     //        }
 
 
-      if ($this->phone) {
-        $response = $this->sendWhatsAppText($this->phone, $this->message);
+    //   if ($this->phone) {
+    //     $response = $this->sendWhatsAppText($this->phone, $this->message);
 
-        if (isset($response['error'])) {
-            \Log::warning("WhatsApp free-form failed: " . json_encode($response['error']));
+    //     if (isset($response['error'])) {
+    //         \Log::warning("WhatsApp free-form failed: " . json_encode($response['error']));
 
-            // Optionally, fallback to template message
-            // $this->sendWhatsAppTemplate($this->phone, $this->message);
-        }
+    //         // Optionally, fallback to template message
+    //         // $this->sendWhatsAppTemplate($this->phone, $this->message);
+    //     }
+    // }
+
     }
+    // private function sendWhatsAppText($phone, $message): array
+    // {
+    //     $to  = $this->formatPhone($phone);
+    //     $url = "https://graph.facebook.com/" . env('WHATSAPP_VERSION') . "/" . env('WHATSAPP_PHONE_ID') . "/messages";
 
-    }
-    private function sendWhatsAppText($phone, $message): array
-    {
-        $to  = $this->formatPhone($phone);
-        $url = "https://graph.facebook.com/" . env('WHATSAPP_VERSION') . "/" . env('WHATSAPP_PHONE_ID') . "/messages";
+    //     $response = Http::withToken(env('WHATSAPP_TOKEN'))->post($url, [
+    //         "messaging_product" => "whatsapp",
+    //         "to"                => $to,
+    //         "type"              => "text",
+    //         "text"              => ["body" => $message],
+    //     ]);
 
-        $response = Http::withToken(env('WHATSAPP_TOKEN'))->post($url, [
-            "messaging_product" => "whatsapp",
-            "to"                => $to,
-            "type"              => "text",
-            "text"              => ["body" => $message],
-        ]);
+    //     if ($response->failed()) {
+    //         \Log::error("WhatsApp free-form send failed: " . $response->body());
+    //     } else {
+    //         \Log::info("WhatsApp free-form sent to {$to}");
+    //     }
 
-        if ($response->failed()) {
-            \Log::error("WhatsApp free-form send failed: " . $response->body());
-        } else {
-            \Log::info("WhatsApp free-form sent to {$to}");
-        }
+    //     return $response->json();
+    // }
+//     private function formatPhone(string $phone): string
+// {
+//     // Remove anything that is not a number
+//     $to = preg_replace('/[^0-9]/', '', $phone);
 
-        return $response->json();
-    }
-    private function formatPhone(string $phone): string
-{
-    // Remove anything that is not a number
-    $to = preg_replace('/[^0-9]/', '', $phone);
+//     // Add Nepal country code if missing
+//     if (substr($to, 0, 2) !== '97') {
+//         $to = '977' . $to;
+//     }
 
-    // Add Nepal country code if missing
-    if (substr($to, 0, 2) !== '97') {
-        $to = '977' . $to;
-    }
-
-    return $to;
-}
+//     return $to;
+// }
 
 }

@@ -12,8 +12,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // Example: run your notification command daily at 9am
-         $schedule->command('renewables:notify')->dailyAt('06:00');
-        //    $schedule->command('renewables:notify')->everySecond();
+           $schedule->command('renewables:notify')->dailyAt('06:00');
+        //    $schedule->command('renewables:notify')->everyMinute();
         //  $schedule->command('renewables:notify')->everyHour();
     }
 

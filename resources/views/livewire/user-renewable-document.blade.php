@@ -126,6 +126,10 @@
                                 class="btn btn-primary mb-3">
                             ✏️ Edit
                         </button>
+                         <button wire:click="edit({{ $renew->id }})" 
+                                class="btn btn-primary mb-3">
+                            Renewable
+                        </button>
                         <a href="{{ route('renewable.history', ['vehicle' => $vehicle->id, 'document' => $renew->document_type_id]) }}"
                          class="btn btn-primary mb-3">
                          📜 Show History
