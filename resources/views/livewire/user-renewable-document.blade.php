@@ -151,15 +151,8 @@
                         {{-- <button   type="button" class="btn btn-primary mb-3" onclick="confirmRenew({{ $renew->id }})">
                             Renewable
                          </button> --}}
-                         <!-- Renewable Button -->
-{{-- <button 
-    type="button" 
-    class="btn btn-primary mb-3"
-    wire:click="openRenewModal({{ $renew->id }})">
-    Renewable
-</button> --}}
-
-
+                       
+                 {{-- <button  type="button" class="btn btn-primary mb-3"wire:click="openRenewModal({{ $renew->id }})">Renewable</button> --}}
                   <script>
                          function confirmRenew(id) {
                               if (confirm('Are you sure you want to renew this document?')) {

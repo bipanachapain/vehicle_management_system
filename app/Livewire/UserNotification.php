@@ -6,11 +6,8 @@ use App\Models\Notification;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 class UserNotification extends Component
-{
-
-    
-    
-    public function render()
+{ 
+        public function render()
     {
         $user = auth()->user();
 

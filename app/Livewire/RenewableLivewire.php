@@ -21,8 +21,6 @@ class RenewableLivewire extends Component
     public $status = false;
     public $isOpen = false;
 
-
-    
     public function mount()
     {
         $this->vehicles = Vehicle::all();
@@ -33,8 +31,6 @@ class RenewableLivewire extends Component
     {
         return view('livewire.renewable')->layout('layouts.admin.admin');
     }
-
-
     public function updatedDocumentTypeId($value)
     {
         $this->calculateExpiredDate();
@@ -55,14 +51,12 @@ class RenewableLivewire extends Component
         } else {
             $this->expired_date = null;
         }
-    }
-    public function create()
+    }    public function create()
     {
         $this->resetFields();
         $this->renewable_date = now()->format('Y-m-d'); 
         $this->isOpen = true;
     }
-
     public function store()
     {
         $this->validate([
@@ -83,7 +77,6 @@ class RenewableLivewire extends Component
         }
     }
         //  dd($this->renewable_date, $this->document_type_id, $this->expired_date);
-      
         Renewable::updateOrCreate(['id' => $this->renewId], [
             'vehicle_id' => $this->vehicle_id,
             'document_type_id' => $this->document_type_id,
@@ -97,7 +90,6 @@ class RenewableLivewire extends Component
            $this->emit('refreshTable');
             $this->closeModal();
     }
-
     public function edit($id)
     {
         $renew = Renewable::findOrFail($id);
@@ -109,17 +101,14 @@ class RenewableLivewire extends Component
         $this->status = $renew->status;
         $this->isOpen = true;
     }
-
-    public function delete($id)
+        public function delete($id)
     {
         Renewable::findOrFail($id)->delete();
-    }
-    
+    }  
     public function closeModal()
     {
        $this->isOpen = false; // Hide form
     }
-
     private function resetFields()
     {
         $this->vehicle_id = '';

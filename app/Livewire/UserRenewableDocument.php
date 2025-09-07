@@ -121,8 +121,6 @@ class UserRenewableDocument extends Component
         'renewable_date'   => $this->renewable_date,
         'expired_date'     => $this->expired_date,
     ]);
-
-
         session()->flash('message', 'Document saved successfully ✅');
         
         $this->resetForm();
@@ -132,13 +130,9 @@ class UserRenewableDocument extends Component
     }
     public function renewDuration($id){
          $renew = Renewable::find($id);
-
         if ($renew) {
-        
         $renew->expired_date = Carbon::parse($renew->expired_date)->addMonths(12);
-
         $renew->save();
-
         RenewableHistory::create([
             'renewable_id'     => $renew->id,
             'vehicle_id'       => $renew->vehicle_id,
@@ -161,5 +155,4 @@ class UserRenewableDocument extends Component
         $this->expired_date = '';
         $this->status = true;
     }
-
 }

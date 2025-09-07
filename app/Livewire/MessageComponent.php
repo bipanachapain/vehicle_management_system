@@ -50,8 +50,6 @@ class MessageComponent extends Component
         //     'message' => 'required|string|max:255',
         //  'document_type_id' => 'required|exists:document_types,id',
         // ]);
-
-
         Message::updateOrCreate(
             ['id' => $this->message_id],
             [
@@ -59,7 +57,6 @@ class MessageComponent extends Component
                 'document_type_id' => $this->document_type_id,
             ]
         );
-
         session()->flash(
             'message',
             $this->message_id ? 'Message updated.' : 'Message created.'
@@ -69,7 +66,6 @@ class MessageComponent extends Component
         $this->updateMode = false;
         $this->closeModal();
     }
-
     public function edit(int $id): void
     {
         if ($message = Message::find($id)) {
@@ -83,7 +79,6 @@ class MessageComponent extends Component
          $this->updateMode = true;
         $this->isModalOpen = true;
     }
-
     public function delete(int $id): void
     {
         if (Message::find($id)?->delete()) {
@@ -93,7 +88,6 @@ class MessageComponent extends Component
         }
 
         $this->resetInputFields();
-        $this->updateMode = false;
-        
+        $this->updateMode = false;  
     }
 }
