@@ -113,6 +113,31 @@
     </div>
   </div>
 </div> --}}
+@if($showRenewModal)
+<div class="modal fade show d-block" style="background: rgba(0,0,0,0.5);">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Renew Document</h5>
+
+      </div>
+
+      <div class="modal-body">
+        <label for="renew_duration">Enter Duration (months)</label>
+        <input type="number" wire:model="renew_duration" class="form-control" placeholder="e.g. 6">
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" wire:click="closeRenewModal">Cancel</button>
+        <button type="button" class="btn btn-primary" wire:click="confirmRenewDuration">Renew</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+@endif
+
 
     {{-- List Vehicles + Documents --}}
     @forelse($vehicles as $vehicle)
@@ -148,9 +173,10 @@
                                 class="btn btn-primary mb-3">
                             ✏️ Edit
                         </button>
-                        {{-- <button   type="button" class="btn btn-primary mb-3" onclick="confirmRenew({{ $renew->id }})">
-                            Renewable
-                         </button> --}}
+                        <!-- Renewable Button -->
+               <button  type="button" class="btn btn-primary mb-3" wire:click="openRenewModal({{ $renew->id }})">
+                    Renewable  </button>
+
                        
                  {{-- <button  type="button" class="btn btn-primary mb-3"wire:click="openRenewModal({{ $renew->id }})">Renewable</button> --}}
                   <script>

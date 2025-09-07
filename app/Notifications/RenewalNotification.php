@@ -40,7 +40,8 @@ class RenewalNotification extends Notification
         return (new MailMessage)
             ->line('Renewable Document Expiry Alert')
              ->line($this->text) 
-            ->action('Notification Action', url('/'))
+            // ->action('Notification Action', url('/'))
+            ->action('Notification Action', route('user.renewables'))
             ->line('Thank you for using our application!');
     }
 

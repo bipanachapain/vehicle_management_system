@@ -24,6 +24,8 @@ class UserRenewableDocument extends Component
     public $status = true;
     public $duration;
     public $isOpen = false;
+    public  $showRenewModal = false;
+    public  $newdurtaion;
     public $documentTypes = [];
 
     public function mount()
@@ -128,24 +130,44 @@ class UserRenewableDocument extends Component
 
         $this->loadData();
     }
-    public function renewDuration($id){
-         $renew = Renewable::find($id);
-        if ($renew) {
-        $renew->expired_date = Carbon::parse($renew->expired_date)->addMonths(12);
+    public function openRenewModal($id)
+{
+    $this->renewable_id = $id;
+    $this->renew_duration = null;
+    $this->showRenewModal = true;
+}
+
+public function closeRenewModal()
+{
+    $this->showRenewModal = false;
+}
+
+public function confirmRenewDuration()
+{
+    $renew = Renewable::find($this->renewable_id);
+
+    if ($renew && $this->renew_duration > 0) {
+        // Extend expiry date
+        $renew->expired_date = Carbon::parse($renew->expired_date)->addMonths($this->renew_duration);
         $renew->save();
+
+        // Save to history
         RenewableHistory::create([
             'renewable_id'     => $renew->id,
             'vehicle_id'       => $renew->vehicle_id,
             'document_type_id' => $renew->document_type_id,
-            'renewable_date'   => Carbon::now(), // today as new renewal date
+            'renewable_date'   => now(),
             'expired_date'     => $renew->expired_date,
         ]);
 
-        session()->flash('message', 'Document renewed successfully ✅');
+        session()->flash('message', "Document renewed for {$this->renew_duration} months ✅");
+
+        $this->closeRenewModal();
+        $this->loadData();
     } else {
-        session()->flash('error', 'Record not found ❌');
+        session()->flash('error', 'Please enter a valid duration ❌');
     }
-    }
+}
     public function resetForm()
     {
         $this->renewable_id = null;
