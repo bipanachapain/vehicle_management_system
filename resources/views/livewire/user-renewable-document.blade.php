@@ -31,7 +31,7 @@
 
                     <div class="modal-body">
                         <form wire:submit.prevent="save">
-                            {{-- Vehicle --}}
+                        
                             <div class="form-group">
                                 <label>Vehicle</label>
                                 <select wire:model="vehicle_id" class="form-control">
@@ -43,7 +43,7 @@
                                 @error('vehicle_id') <span class="text-danger small">{{ $message }}</span> @enderror
                             </div>
 
-                            {{-- Document Type --}}
+                          
                             <div class="form-group">
                                 <label>Document Type</label>
                                 <select wire:model="document_type_id" class="form-control">
@@ -55,7 +55,7 @@
                                 @error('document_type_id') <span class="text-danger small">{{ $message }}</span> @enderror
                             </div>
 
-                            {{-- Renewable Date --}}
+                           
                             <div class="form-group">
                                 <label>Renewable Date</label>
                                 <input type="date" wire:model="renewable_date" class="form-control"  max="{{ now()->toDateString() }}">
@@ -64,18 +64,17 @@
 
                               <div class="form-group">
                                 <label>Duration (Months)</label>
-                                 <input type="number" wire:model="duration" class="form-control" min="1">
+                                 <input type="number" wire:model="duration" class="form-control" min="1" oninput="this.value = this.value < 1 ? '' : this.value" required>
                                    @error('duration') <span class="text-danger small">{{ $message }}</span> @enderror
                               </div>
 
-                            {{-- Expired Date --}}
+                           
                             {{-- <div class="form-group">
                                 <label>Expired Date</label>
                                 <input type="date" wire:model="expired_date" class="form-control">
                                 @error('expired_date') <span class="text-danger small">{{ $message }}</span> @enderror
                             </div> --}}
 
-                            {{-- Status --}}
                             <div class="form-group form-check">
                                 <input type="checkbox" wire:model="status" class="form-check-input" id="statusCheck">
                                 <label for="statusCheck" class="form-check-label">Active</label>
@@ -91,6 +90,29 @@
             </div>
         </div>
     @endif
+
+    {{-- <div class="modal fade @if($showRenewModal) show d-block @endif" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title">Renew Document</h5>
+        <button type="button" class="close" wire:click="closeRenewModal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <label for="duration">Add Duration (months)</label>
+        <input type="number" wire:model="renew_duration" class="form-control" placeholder="Enter months">
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" wire:click="closeRenewModal">Cancel</button>
+        <button type="button" class="btn btn-primary" wire:click="confirmRenewDuration">Renew</button>
+      </div>
+
+    </div>
+  </div>
+</div> --}}
 
     {{-- List Vehicles + Documents --}}
     @forelse($vehicles as $vehicle)
@@ -126,10 +148,25 @@
                                 class="btn btn-primary mb-3">
                             ✏️ Edit
                         </button>
-                         <button wire:click="edit({{ $renew->id }})" 
-                                class="btn btn-primary mb-3">
+                        {{-- <button   type="button" class="btn btn-primary mb-3" onclick="confirmRenew({{ $renew->id }})">
                             Renewable
-                        </button>
+                         </button> --}}
+                         <!-- Renewable Button -->
+{{-- <button 
+    type="button" 
+    class="btn btn-primary mb-3"
+    wire:click="openRenewModal({{ $renew->id }})">
+    Renewable
+</button> --}}
+
+
+                  <script>
+                         function confirmRenew(id) {
+                              if (confirm('Are you sure you want to renew this document?')) {
+                                  Livewire.dispatch('renewDocument', { id: id });
+                               }
+                            }
+                 </script>
                         <a href="{{ route('renewable.history', ['vehicle' => $vehicle->id, 'document' => $renew->document_type_id]) }}"
                          class="btn btn-primary mb-3">
                          📜 Show History
@@ -145,10 +182,6 @@
     @empty
         <p class="text-muted">No vehicles found.</p>
     @endforelse
-
-    
-
-    
              </div>
 
            </div>
